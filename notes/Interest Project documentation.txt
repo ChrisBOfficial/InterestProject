@@ -1,0 +1,401 @@
+=====================================================
+C++ Interest Project
+
+By: Chris Burbach
+Website: github.com/chrisbofficial	
+=====================================================
+What tools did I use to put this together?
+=====================================================
+	-An IDE / editor that can make C++ applications
+		-Visual Studio, Eclipse, Netbeans, Emacs, VIM, notepad, etc.
+			-I used Xcode, but any of the above work just as well
+	-A C++ compiler
+		-This is built into Visual Studio and some others.
+			-I used Apple’s default LLVM compiler 
+	-Tiled Map Editor (mapeditor.org)
+		-Free map editor for creating all of our levels
+	-An image editor
+		-Photoshop, Illustrator, Paint.net, GIMP, etc.
+			-I used Photoshop, but it’s personal preference
+	-Github for version control / sharing the source code	
+=====================================================
+Setting everything up!
+=====================================================
+-I did all of my development on macOS 10.12 Sierra
+		-This is C/C++, so it could be developed on any platform
+			-*There might be some minor library differences between platforms*
+	-Downloaded SDL2 (I used version 2.0.5) - https://www.libsdl.org/download-2.0.php
+	-I used Xcode https://developer.apple.com/xcode/
+	-Put the .framework file in ~/Library/Frameworks
+	-In the IDE, set up the linker.
+		-If I was on Windows / Visual Studio, I would need to set up “includes”.
+			-There are guides on the internet for this
+			-This was all included in the Mac .framework for SDL2.
+=====================================================
+Problem 1
+=====================================================
+	-We need a window on the screen to draw our game to
+=====================================================
+Details
+=====================================================
+	-We'll have a class dedicated entirely to graphics
+	-The game resolution is 640x480
+=====================================================
+Solution
+=====================================================
+	-Split up headers / implementation files
+	-Create graphics class
+	-Call it from main (for now)
+=====================================================
+Problem 2
+=====================================================
+	-We need a more central location for the game loop logic
+	-Events (input, closing the window, etc)
+	-Limiting FPS
+	-The rest of the game class
+=====================================================
+Details
+=====================================================
+	-Game will runs at 50 FPS
+		-Because of the number of sprites I made, too lazy to make more for 60 FPS
+=====================================================
+Solution
+=====================================================
+	-Create the game class and implement it
+	-Create the input class and implement it
+	-Add input to game loop
+	-Limit FPS
+=====================================================
+Problem 3
+=====================================================
+	-We should put our comments in the header files
+	-We need to be able to draw things to the screen
+		-More specifically, our character!
+	-Our graphics class doesn't do much right now
+	-We can't load PNG files just yet
+=====================================================
+Details
+=====================================================
+	-Spritesheet for character - MyChar.png
+	-https://www.libsdl.org/projects/SDL_image/
+=====================================================
+Solution
+=====================================================
+	-Download and add SDL_image to project includes
+	-Modify graphics class to draw to the screen
+	-Implement a sprite class
+	-Add some [safe] global variables
+	-Modify game class to draw sprites
+	-Add it all into game to draw the player!
+=====================================================
+Problem 4
+=====================================================
+	-We need to animate our sprites
+		-More specifically, for right now, character
+=====================================================
+Details
+=====================================================
+	-Character’s running animation has 3 frames each
+=====================================================
+Solution
+=====================================================
+	-Fix global width variable
+	-Create global Vector2 struct
+	-Create the animated sprite class (extends off of sprite)
+	-Use animated sprite in the game class instead of sprite
+	-Watch character run endlessly
+=====================================================
+Problem 5
+=====================================================
+	-We need a class to hold the Player object
+	-The player needs to be able to move around the screen
+		-Changing direction
+=====================================================
+Details
+=====================================================
+	-Player timeToUpdate - 100 looks good
+	-We'll start out facing right for now
+=====================================================
+Solution
+=====================================================
+	-Make setupAnimations "protected" in AnimatedSprite
+	-Make setupAnimations and animationDone pure virtual in AnimatedSprite
+	-Create the player class and get everything working as it is now
+	-Add global enum for direction (which way character is facing)
+	-Add two new animations: IdleLeft and IdleRight
+	-Add movement to the player class
+	-Use the movement functions in the game class with input!
+=====================================================
+Problem 6
+=====================================================
+	-We need a way to represent a "Level" or a "Map"
+	-We need to draw a background on the screen
+=====================================================
+Details
+=====================================================
+	-Background is bkBlue
+	-Backgrounds are 64x64 px
+=====================================================
+Solution
+=====================================================
+	-Create the Level class
+	-Create new directory content/backgrounds
+	-Add the level to the game class
+	-Fix character’s transparency
+=====================================================
+Problem 7
+=====================================================
+	-We need to actually draw the map in Tiled!
+	-We need an XML parsing library
+=====================================================
+Details
+=====================================================
+	-New Tiled map
+		-Orthogonal
+		-Xml
+		-Right down	
+		
+		(all of this is x2)
+		width: 20 tiles
+		height: 16 tiles 
+		
+		tile width: 16px
+		tile height: 16px
+		
+	
+	-TinyXML2: https://github.com/leethomason/tinyxml2 -> download as zip
+=====================================================
+Solution
+=====================================================
+	-Fix destRect for backgrounds
+	-Downloaded Tiled if you haven't already
+	-Create new directory content/tilesets
+	-Create new directory content/maps
+	-Load tileset into tiled and make the map (two different layers)
+	-Download TinyXML2 and set it up
+=====================================================
+Problem 8
+=====================================================
+	-Now that we have our map built, we need our program to read and understand it
+=====================================================
+Details
+=====================================================
+	-We'll parse XML with TinyXML library
+=====================================================
+Solution
+=====================================================
+	-Add SDL_DestroyRenderer
+	-Create Tile class
+	-Create Tileset struct (in level.h)
+	-Add new variables to Level class
+	-Include TinyXML in level.cpp and implement LoadMap
+=====================================================
+Problem 9
+=====================================================
+	-We need gravity to be applied to our character
+	-Collision!
+	-Specify spawn point in Tiled
+=====================================================
+Details
+=====================================================
+	-Gravity constants:
+		GRAVITY = 0.002f;
+		GRAVITY_CAP = 0.8f;
+		
+	-Spawn point: 280, 252
+=====================================================
+Solution
+=====================================================
+	-Add gravity to the player
+	-Create "side" namespace in globals
+	-Create the rectangle class
+	-Add collisionRects vector to Level
+	-Draw the collisions in Tiled
+	-Parse the collisions
+	-Check tile collisions!
+	-Bounding box 
+	-getCollisionSide in sprite class
+	-handleTileCollisions in player class
+	-Finally, add it all to the game class!!
+	-Draw spawn point in Tiled
+	-Parse it and save it in spawn point
+	-Change spawn point in game class to use it
+=====================================================
+Problem 10
+=====================================================
+	-We need to be able to run up and down slopes
+		-Currently, we only have rectangular "tile" collisions
+	-We need to be able to jump
+=====================================================
+Details
+=====================================================
+	-Polyline slopes
+	-const float JUMP_SPEED = 0.7f;
+=====================================================
+Solution
+=====================================================
+	-New Object layer in Tiled "slopes"
+	-Draw slopes with the Polyline tool
+	-Utils class: string split function
+	-Create the slope class
+	-Create list of slopes in level class
+	-Parse them out of the .tmx file
+	-Handle the slope collisions (player and game classes)
+	-Player jumping
+=====================================================
+Problem 11
+=====================================================
+	-All of our tiles just sit still
+	-We want tiles that are animated on the screen
+		-We also want them animated in Tiled
+	-Our map isn't quite complete yet (heart container and save disk)
+=====================================================
+Details
+=====================================================
+	-Save disk duration: 100
+	-Health duration: 10
+=====================================================
+Solution
+=====================================================
+	-Fix AnimatedSprite update
+	-Convert Npc/NpcSym.pbm to png and put it in tilesets folder
+	-Create the tiles in Tiled
+	-Fix the tile loading
+	-Create AnimatedTile class
+	-Parse the animation out of the .tmx file
+	-Modify the level class to use our new AnimatedTile
+=====================================================
+Problem 12
+=====================================================
+	-Character needs to be able to look up and down
+	-Character also needs to look backwards to interact with things
+=====================================================
+Details
+=====================================================
+	-MyChar.png
+=====================================================
+Solution
+=====================================================
+	-Add new animations
+	-Add functions to player for lookUp, stopLookingUp, lookDown, stopLookingDown
+	-Call these functions from the game class
+=====================================================
+Problem 13
+=====================================================
+	-We need to see certain information on the screen
+		-Health
+		-Gun EXP
+		-Gun Level
+	-We'll be getting health on the screen
+=====================================================
+Details
+=====================================================
+	TextBox.png
+		-Health bar sprite:
+			x: 0
+			y: 40
+			width: 64
+			height: 8
+			screen pos x: 35
+			screen pos y: 70
+		-Health number sprite:
+		 	x: 0
+		 	y: 56
+		 	width: 8
+		 	height: 8
+		 	screen pos x: 66
+		 	screen pos y: 70
+=====================================================
+Solution
+=====================================================
+	-Add player health
+	-Create a bunch of Sprite objects in a new HUD class
+	-Special update/drawing logic
+	-Add it to the game class
+=====================================================
+Problem 14
+=====================================================
+	-We need to finish up the HUD
+		-Exp bar
+		-Exp number
+		-Some gun information
+		-The "current" health bar
+=====================================================
+Details
+======================================================
+	currentHealthBar = 0, 25, 39, 5, 83, 72
+	lvWord = 81, 81, 11, 7, 38, 55
+	lvNumber = 0, 56, 8, 8,  66, 52
+	expBar = 0, 72, 40, 8, 83, 52
+	slash = 72, 48, 8, 8, 100, 36
+	dashes = 81, 51, 15, 11, 132, 26
+=====================================================
+Solution
+=====================================================
+	-Fix FPS
+	-Implement setSourceRectW and setSourceRectH in Sprite
+	-Add all of the sprites in the correct positions!
+=====================================================
+Problem 15
+=====================================================
+	-We need to be able to go through doors
+=====================================================
+Details
+=====================================================
+	Map 2.tmx
+=====================================================
+Solution
+=====================================================
+	-Add door object to map 1
+	-Create door class
+	-Parse the door info out of the tmx file
+	-Handle the collision of the player with the door
+=====================================================
+Problem 16
+=====================================================
+	-We don't have any monsters in our game yet :(
+=====================================================
+Details
+=====================================================
+-We'll be using the Bat in NpcCemet
+	
+	3, 2, 32, "FlyLeft", 16, 16
+	3, 2, 48, "FlyRight", 16, 16
+=====================================================
+Solution
+=====================================================
+	-Create Enemy base class
+	-Create Bat class extending off of Enemy
+	-Add bat spawn points to Tiled
+	-Parse enemy info out of tmx file and into an Enemy vector
+	-Update and draw from the level class
+=====================================================
+Problem 17
+=====================================================
+	-Our bat doesn't move. 
+	-It also can't hurt us
+=====================================================
+Details
+=====================================================
+	-The bat will move 20 units away from the starting point in either direction
+	-The bat will move by .2 units per frame
+	-The bat will do 1 damage
+=====================================================
+Solution
+=====================================================
+	-Add a few new private properties to bat
+	-Update the update function with the new logic for moving
+	-Handle the collision
+
+
+
+
+	
+
+
+
+	
+
+	
+
+	

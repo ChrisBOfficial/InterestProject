@@ -3,6 +3,33 @@
  <tileset firstgid="1" name="prtCave" tilewidth="16" tileheight="16" tilecount="80" columns="16">
   <image source="/Users/Christopher/Projects/APCSA Interest Project/APCSA Interest Project/PrtCave.png" width="256" height="80"/>
  </tileset>
+ <tileset firstgid="81" name="NpcSym" tilewidth="16" tileheight="16" tilecount="300" columns="20">
+  <image source="/Users/Christopher/Projects/APCSA Interest Project/APCSA Interest Project/NpcSym.png" width="320" height="240"/>
+  <tile id="18">
+   <animation>
+    <frame tileid="18" duration="10"/>
+    <frame tileid="19" duration="100"/>
+   </animation>
+  </tile>
+  <tile id="26">
+   <animation>
+    <frame tileid="26" duration="100"/>
+    <frame tileid="27" duration="100"/>
+    <frame tileid="28" duration="100"/>
+    <frame tileid="29" duration="100"/>
+    <frame tileid="30" duration="100"/>
+    <frame tileid="31" duration="100"/>
+    <frame tileid="32" duration="100"/>
+    <frame tileid="33" duration="100"/>
+   </animation>
+  </tile>
+  <tile id="122">
+   <animation>
+    <frame tileid="122" duration="100"/>
+    <frame tileid="123" duration="100"/>
+   </animation>
+  </tile>
+ </tileset>
  <layer name="background" width="20" height="16">
   <data>
    <tile gid="34"/>
@@ -482,8 +509,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="0"/>
-   <tile gid="0"/>
+   <tile gid="203"/>
+   <tile gid="107"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
