@@ -39,6 +39,7 @@
 /* Begin PBXFileReference section */
 		9D558A5D1E9FFD5500BBC7B9 /* NpcSym.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NpcSym.png; sourceTree = "<group>"; };
 		9D558A5E1EA0003200BBC7B9 /* misc.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = misc.rtf; sourceTree = "<group>"; };
+		9D558A601EA32DD000BBC7B9 /* TextBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TextBox.png; sourceTree = "<group>"; };
 		9DA3999F1E9DDB1D00545290 /* Map 1.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Map 1.tmx"; sourceTree = "<group>"; };
 		9DA399A01E9DDB5900545290 /* PrtCave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PrtCave.png; sourceTree = "<group>"; };
 		9DCF4F661E9D8A48005AEE41 /* tile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tile.h; sourceTree = "<group>"; };
@@ -94,6 +95,7 @@
 		9DCF4F771E9D8C65005AEE41 /* content */ = {
 			isa = PBXGroup;
 			children = (
+				9D558A601EA32DD000BBC7B9 /* TextBox.png */,
 				9D558A5D1E9FFD5500BBC7B9 /* NpcSym.png */,
 				9DCF4F781E9D8C6E005AEE41 /* MyChar.png */,
 				9DA399A01E9DDB5900545290 /* PrtCave.png */,
